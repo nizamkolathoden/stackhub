@@ -1,6 +1,8 @@
 
 const Events = require('../model/events')
 
+ const Booked = require('../model/bookedScheam')
+
 const Users = require("../model/user");
 
 const mail = require('../helper/mail')
@@ -56,6 +58,13 @@ module.exports = {
       }, {
         new: true
       })
+
+      const addedBook = await new Booked({
+        eventId:Updated._id,
+        whoBooked:userId
+      }).save()
+
+      console.log(addedBook);
 
 
 

@@ -2,6 +2,9 @@
 
 GET {{url}}/all/team
 ###
+
+GET {{url}}/all/event
+###
 GET {{url}}/all/pre-event
 
 ###
@@ -23,10 +26,20 @@ Content-Type: application/json
     "email":"nizamniz2k19@gmail.com"
 
 }
+###
+
+POST {{url}}/test
+Content-Type: application/json
+
+{
+    "id":"625e89b90bc6fd43607d9a82"
+
+}
+
 
 ###
 PUT {{url}}/user/events/register
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MGY3YjJhYzg5ODdjODEzMTI2YWQ0YTUiLCJpYXQiOjE2MjcwMzk0MjMsImV4cCI6MTYyNzA0NjYyMywiaXNzIjoic3RhY2todWJNYXNjIn0.DBuUJYYpr3gkTxDwHGGwqM-U0htZQZ9K6QTSa4DoTT0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MjVlODI2MTgwZWFhZjM1YzY5YjAxY2EiLCJpYXQiOjE2NTAzNjA5ODUsImV4cCI6MTY1MDM2ODE4NSwiaXNzIjoic3RhY2todWJNYXNjIn0.IypezeHC2NGsASFfYGRmJBVSsGSyi-yCmgOTFkU9g_A
 Content-Type: application/json
 
 {
@@ -79,17 +92,17 @@ Content-Type:application/json
 
 {
     "name":"nizam",
-    "email":"nizamniz2k19@gmail.com",
+    "email":"nizamniz2k191@gmail.com",
     "password":"123"
 }
 
 ###
-POST {{url}}/auth/admin/login
+POST {{url}}/auth/user/login
 Content-Type:application/json
 
 {
-    "email":"nizamniz1001@gmaiil.com",
-    "password":"1234"
+    "email":"nizamniz2k191@gmail.com",
+    "password":"123"
 }
 ###
 POST {{url}}/auth/admin/refresh
@@ -113,7 +126,7 @@ POST {{url}}/auth/admin/register
 Content-Type: application/json
 
 {
-    "email":"nizamniz100@gmail.com",
+    "email":"nizamniz2k19@gmail.com",
     "password":"123"
     
 }
@@ -130,12 +143,12 @@ Content-Type: application/json
 ###
 POST {{url}}/admin/events
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MGZiZjk3ZWRjMWM3ZjIwOWE1MjAzM2IiLCJpYXQiOjE2MjcxMjYxNDIsImV4cCI6MTYyNzEzMzM0MiwiaXNzIjoic3RhY2todWJNYXNjIn0.1Yt6w5zUvgHeJXpVPCchwM4rRuIB8J2SnouszRsztXI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MTM3NDQxMWRjYzg5ODI3NzA3YzQ2NDMiLCJpYXQiOjE2MzEwMTE4NTgsImV4cCI6MTYzMTAxOTA1OCwiaXNzIjoic3RhY2todWJNYXNjIn0.3flnRomx-ZDQ2yakFSd1y0OLfc7-dYIlcO80IbUFWAs
 
 {
     "name":"git",
     "totalSeat":2,
-    "date":"2021-07-25T11:23:10.546Z",
+    "date":"2022-07-25T11:23:10.546Z",
     "resoursePerson":"nizam",            
     "location":"clg av hall",
     "pic":"hdhdhd",
@@ -162,6 +175,9 @@ Content-Type: application/json
 
 }
 
+###
+PUT {{url}}/user/events/register
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MjVlODI2MTgwZWFhZjM1YzY5YjAxY2EiLCJpYXQiOjE2NTAzNjA5ODUsImV4cCI6MTY1MDM2ODE4NSwiaXNzIjoic3RhY2todWJNYXNjIn0.IypezeHC2NGsASFfYGRmJBVSsGSyi-yCmgOTFkU9g_A
 ###
 DELETE {{url}}/admin/events
 Content-Type: application/json
@@ -207,3 +223,5 @@ Content-Type: application/json
     "role":"tech lead"
 
 }
+###
+GET http://localhost:4000/auth/user/verify-email/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiI2MjVlODI2MTgwZWFhZjM1YzY5YjAxY2EiLCJpYXQiOjE2NTAzNjA5MjksImV4cCI6MTY1MDM2ODEyOSwiaXNzIjoic3RhY2todWJNYXNjIn0.RjJB3aRlIccR6QXnUxkqAEhClda1rtq6V6OR-_AWW28

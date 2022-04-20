@@ -202,7 +202,7 @@ module.exports = {
 
             const error = validationResult(req);
 
-            if (!error.isEmpty) {
+            if (!error.isEmpty()) {
                 console.log(error)
 
                 return res.json({ error: error })
@@ -325,7 +325,7 @@ module.exports = {
             console.log(userData)
 
             if (userData.isVerfiyed)
-                return res.json({ error: "User Already Verifyed" })
+                return res.json({ error: "User Already Verified" })
 
             const secret = process.env.Verfiy_Email_Secret;
 
