@@ -1,5 +1,6 @@
 const Teams = require("../model/team");
-const Events = require("../model/events")
+const Events = require("../model/events");
+const Mongoose = require("mongoose");
 
 module.exports = {
 
@@ -66,8 +67,8 @@ module.exports = {
 
     },
 
-    previousEvent: async(req,res)=>{
-        
+    previousEvent: async (req, res) => {
+
         const previousEvent = await Events.aggregate([
             {
                 $addFields: { isOver: { $lt: ["$date", new Date()] } }
@@ -94,7 +95,7 @@ module.exports = {
 
                     minute: { $minute: "$date" },
 
-                    particepant: {    $size: "$booked"  }
+                    particepant: { $size: "$booked" }
 
 
                 }
@@ -102,5 +103,40 @@ module.exports = {
         ])
 
         res.json(previousEvent)
+    },
+    singleEvent: async (req,res) => {
+        try {
+            const { id } = req.params;
+            // console.log(id);
+            const Id = Mongoose.Types.ObjectId(id)
+            // console.log(Id);
+          const eventDetials = await  Events.aggregate([
+            { $match: { "_id":Id } }, 
+               
+                {
+                    $project:
+                    {
+                        name: 1,
+                        type: 1,
+                        location: 1,
+                        totalSeat: 1,
+                        pic: 1,
+                        resoursePerson: 1,
+                        fee: 1,
+                        date:1,
+
+                        availableSeat: { $subtract: ["$totalSeat", { $size: "$booked" }] }
+
+
+                    }
+                }
+            ])
+            res.json(eventDetials)
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({error:"Internal Server Error"})
+        }
+
+
     }
 }

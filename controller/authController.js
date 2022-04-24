@@ -193,7 +193,13 @@ module.exports = {
     //user auth
 
     userRegister: async (req, res) => {
-        const { name, email, password } = req.body;
+        const { name, email, password, career, district, home,
+            institution,
+            intersted,
+            pronoun,
+            stream,
+            year,
+            dob } = req.body;
 
         if (!name || !email || !password)
             return res.status(404).json({ error: "enter all fields" });
@@ -224,15 +230,26 @@ module.exports = {
                 }
 
                 bcrypt.hash(password, salt, async (err, hashedPassword) => {
-
+                    // const data = req.body
                     const newUser = await new User({
-
+                        career,
+                        district,
+                        home,
+                        institution,
+                        intersted,
+                        pronoun,
+                        stream,
+                        year,
+                        dob,
                         name,
                         email,
-                        password: hashedPassword
+                        password: hashedPassword,
+
+
 
                     }).save()
-
+                    // console.log(data);
+                    // return res.json(data)
 
 
                     const secret = process.env.Verfiy_Email_Secret;
@@ -480,18 +497,18 @@ module.exports = {
 
             //mail
 
-                    const subject = 'Reset Your  Password';
+            const subject = 'Reset Your  Password';
 
-                    const text = `click this link for rest your password ${url}`
+            const text = `click this link for rest your password ${url}`
 
-                    const html = `<h3>Change Your Password 🤗</h3>
+            const html = `<h3>Change Your Password 🤗</h3>
                         <a href=${url}><button>click this Button for Reset Password</button></a>
                     `
 
 
 
-                    Mail(email, subject, text, html)
-                    res.json(`Hey ${userData.name} we send Rest Password Link  to your registerd email It will Expired in 2 hour`)
+            Mail(email, subject, text, html)
+            res.json(`Hey ${userData.name} we send Rest Password Link  to your registerd email It will Expired in 2 hour`)
             console.log(url)
         } catch (err) {
 
@@ -524,15 +541,15 @@ module.exports = {
                 return res.json({ error: "Enter valid Password" })
 
             const saltRound = 10;
-            
+
             bcrypt.genSalt(saltRound, (err, salt) => {
-                    console.log(salt)
+                console.log(salt)
                 if (err) {
                     console.error("gen salt", err.message);
                     return res.status(500).json({ error: "Internal Server Error" })
                 }
 
-                bcrypt.hash(password,salt, async (err, hashedPassword) => {
+                bcrypt.hash(password, salt, async (err, hashedPassword) => {
 
                     if (err) {
                         console.error(err)

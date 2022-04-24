@@ -7,6 +7,9 @@ const eventsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    desc:{
+        type:String
+    },
     type: {
         type: String,
         default: 'offline'
@@ -28,6 +31,9 @@ const eventsSchema = new mongoose.Schema({
         type: String
     },
     pic: {
+        type: String
+    },
+    banner: {
         type: String
     },
     location: {

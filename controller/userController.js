@@ -48,7 +48,7 @@ module.exports = {
       console.log(Event[0])
 
       if (Event[0] ? Event[0].isBooked : false)
-        return res.json({ error: "User Already Booked This Event" })
+        return res.json({ error: "You Already Booked This Event" })
 
       if (Event ? Event[0].totalSeat <= Event[0].bookedSeat : false)
         return res.json({ error: "Sorry Seat's Are full" })
@@ -64,11 +64,11 @@ module.exports = {
         whoBooked:userId
       }).save()
 
-      console.log(addedBook);
+      // console.log(addedBook);
 
 
 
-      // res.json(Updated)
+      res.json("Thanks for Register Our Event")
 
 
 
@@ -84,7 +84,7 @@ module.exports = {
 
       mail(email,subject,text,html);
 
-      res.json("Thanks for Register Our Event")
+      
 
     } catch (err) {
 
@@ -95,5 +95,61 @@ module.exports = {
 
 
 
-  }
+  },
+  bookedEvent:async(req,res)=>{
+    try {
+      const userId = req.payload.aud;
+      const bookedData = await Booked.find({whoBooked:userId}).populate("eventId","pic name date location")
+      res.json(bookedData)
+    } catch (err) {
+      
+    }
+  },
+  ourEvents: async (req, res) => {
+    try {
+      const userId = req.payload.aud;
+      const username = await Users.findById(userId,"name")
+        const upcomingEvent = await Events.aggregate([
+            {
+                $addFields: { isNotOver: { $gte: ["$date", new Date()] } }
+            },
+            { $match: { "isNotOver": true } },
+            {
+                $project:
+                {
+                    name: 1,
+                    type: 1,
+                    location: 1,
+                    totalSeat: 1,
+                    pic: 1,
+                    resoursePerson: 1,
+                    fee: 1,
+
+                    year: { $year: "$date" },
+
+                    month: { $month: "$date" },
+
+                    day: { $dayOfMonth: "$date" },
+
+                    hour: { $hour: "$date" },
+
+                    minute: { $minute: "$date" },
+
+                    availableSeat: { $subtract: ["$totalSeat", { $size: "$booked" }] }
+
+
+                }
+            }
+        ])
+
+        res.json({upcomingEvent,username})
+    } catch (err) {
+
+        console.error(err.message);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+
+
+
+}
 }
